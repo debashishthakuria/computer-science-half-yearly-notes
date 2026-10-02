@@ -14,7 +14,14 @@ page = page.replace('<span class="tag">Separate half-yearly revision page</span>
 page = page.replace('<main class="wrap" id="top">', '<div class="site-layout"><aside id="studyNav" class="nav" aria-label="Study sections"></aside><main class="study-main" id="top">', 1)
 page = re.sub(r'<nav class="nav" aria-label="Jump to topic">.*?</nav>', '', page, count=1)
 page = page.replace('</main><footer>', '</main></div><footer>', 1)
-# The opening caution and exact closing credit from the published guide remain untouched.
+# Keep the caution verbatim, but show it at the bottom above the closing credit.
+notice_match = re.search(r'<div class="notice"><div class="wrap">.*?</div></div>', page, flags=re.S)
+assert notice_match and page.count('Independent-verification caution:') == 1
+notice = notice_match.group(0)
+page = page.replace(notice, '', 1)
+assert '<footer>' in page
+page = page.replace('<footer>', '<footer>' + notice, 1)
+page = page.replace('</head>', '<style>footer .notice{position:static;background:transparent;border:0;border-bottom:1px solid var(--line);max-width:900px;margin:0 auto 15px;padding:12px 22px;color:var(--muted)}footer .notice .wrap{width:auto;max-width:none}</style></head>', 1)
 
 NAV = [
     ('map', 'Overview'), ('concepts', 'Key concepts'), ('turbo', 'Turbo C++ setup'),
