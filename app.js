@@ -51,7 +51,9 @@
     }
   });
   $('resetCode').addEventListener('click', () => { editor.value = original; editor.focus(); output.textContent = 'Original answer restored.'; });
-  document.querySelectorAll('.practice-jump').forEach(link => link.addEventListener('click', () => {
+  document.querySelectorAll('.practice-jump').forEach(link => link.addEventListener('click', event => {
+    if (window.studyWorkspace) return;
+    event.preventDefault();
     const match = link.dataset.match;
     const target = buttons.find(b => b.closest('.answer')?.querySelector('pre code')?.textContent.includes(match));
     if (target) { target.closest('details').open = true; setTimeout(() => open(target), 180); }
