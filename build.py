@@ -29,9 +29,9 @@ intro = '''<section id="map"><h2>Start here / What to study first</h2><p class="
 <h3>Flowchart: object life cycle</h3>''' + flow(['Define class','Create object','Constructor runs','Use methods','Object leaves scope','Destructor runs']) + '''
 <h3>Flowchart: write a SQL query</h3>''' + flow(['Pick table(s)','SELECT columns','FROM table','WHERE rows','GROUP BY groups','HAVING groups','ORDER BY result']) + '''<p class="small">These are conceptual flowcharts, not a diagram of how every DBMS physically executes a query. Omit unneeded clauses; <code>HAVING</code> is normally used with grouping.</p>
 <h3>Flowchart: network question</h3>''' + flow(['How large is the area?','Building → LAN','City → MAN','Wide area → WAN']) + '''</section>
-<section id="turbo"><h2>02 / Turbo C vs Turbo C++</h2><p class="sub">Important correction before writing programs.</p><div class="callout"><strong>Turbo C and Turbo C++ are not the same language.</strong> Your official Class XII subject specifies <strong>object-oriented programming in C++</strong> and its file-handling section explicitly mentions <code>fstream.h</code>. Classes, constructors and inheritance cannot be written as C programs. Accordingly the OOP examples here are <strong>old-style Turbo C++ (.CPP)</strong>; the procedural examples are <strong>Turbo C (.C)</strong>. Ask your teacher which compiler/version is actually installed. These examples have been syntax-checked using a modern compiler in compatible form where possible, but no Turbo compiler was available here for direct testing. [1]</div>
-<p><b>For .CPP:</b> <code>#include &lt;iostream.h&gt;</code>, <code>cout/cin</code>, <code>int main()</code> and <code>return 0;</code>; no <code>using namespace std</code>, templates or modern features. For .C use <code>#include &lt;stdio.h&gt;</code>, <code>printf/scanf</code>. <code>conio.h</code>, <code>clrscr()</code> and <code>getch()</code> are optional Borland-specific console conveniences, not required for program logic. Avoid <code>void main()</code> as non-standard.</p>
-''' + box('How do I save and run the sample programs?', '<p>Save C++ snippets as <code>.CPP</code> and C snippets as <code>.C</code>. In Turbo C++ IDE, compile then run. If the display disappears quickly, view the output screen using the IDE’s output-window shortcut or add <code>#include &lt;conio.h&gt;</code> and <code>getch();</code> just before <code>return 0;</code>. Do not copy several complete programs into one file: each contains its own <code>main()</code>.</p>') + '''</section>
+<section id="turbo"><h2>02 / Turbo C++ setup</h2><p class="sub">Your classroom work is C++ only; save programs as .CPP.</p><div class="callout"><strong>Use Turbo C++ (.CPP) for every program in this guide.</strong> The official Class XII subject specifies object-oriented programming in C++, and file handling mentions <code>fstream.h</code>. The online practice window runs a compatible GCC C++ simulation, not an actual Turbo C++ installation. Your school's precise half-yearly chapter boundaries and IDE version still need teacher confirmation. [1]</div>
+<p>Use <code>#include &lt;iostream.h&gt;</code>, <code>cout/cin</code>, <code>int main()</code> and <code>return 0;</code>. <code>conio.h</code>, <code>clrscr()</code> and <code>getch()</code> are optional Borland console conveniences, not required for the logic. Avoid <code>void main()</code> as non-standard.</p>
+<details class="card"><summary>How do I save and run the sample programs?</summary><div class="answer"><p>Save each snippet separately as a <code>.CPP</code> file in Turbo C++ IDE, then compile and run. If the display disappears quickly, use the IDE’s output window or add <code>#include &lt;conio.h&gt;</code> and <code>getch();</code> before <code>return 0;</code>. Each sample has its own <code>main()</code>; do not paste several into one file.</p></div></details></section>
 <section id="oop"><h2>03 / OOP in C++ · lessons and examples</h2><p class="sub">Official course unit I; the half-yearly study plan explicitly prioritises this unit. [1]</p>
 ''' + box('Class, object, visibility and encapsulation', '<p>Declare a <b>class</b> with data members and member functions. A class’s members are <b>private by default</b>. Expose safe public functions rather than changing private data directly. An object occupies storage as an instance of the class. <code>::</code> defines a member function outside its class.</p>' + code('''#include <iostream.h>
 class Item {
@@ -111,43 +111,43 @@ int main() {
     in.close();
     return 0;
 }''') + '<p><b>Output:</b> Assam. Compiling as <code>.CPP</code> requires the old Turbo C++ header; modern compilers use <code>&lt;fstream&gt;</code> instead.</p>') + '''</section>
-<section id="cprograms"><h2>04 / Turbo C programs (.C)</h2><p class="sub">Procedural revision: operators, errors and data structures mentioned in your notes or the full syllabus. These are C, <em>not</em> OOP. [1]</p>
-''' + box('Operators + even/odd · branching flowchart', flow(['Read n','n % 2 == 0?','Yes → even','No → odd']) + code('''#include <stdio.h>
-int main(void) {
+<section id="cppprograms"><h2>04 / C++ programs (.CPP)</h2><p class="sub">Procedural-style exercises written entirely in C++ for your Turbo C++ classroom. Data structures are full-syllabus bridges; confirm your half-yearly scope with your teacher. [1]</p>
+<details class="card"><summary>Operators + even/odd · branching flowchart</summary><div class="answer"><div class="flow" role="img" aria-label="Read n then n % 2 == 0? then Yes → even then No → odd"><span class="node">Read n</span><span aria-hidden="true" class="arrow">→</span><span class="node">n % 2 == 0?</span><span aria-hidden="true" class="arrow">→</span><span class="node">Yes → even</span><span aria-hidden="true" class="arrow">→</span><span class="node">No → odd</span></div><pre><code>#include &lt;iostream.h&gt;
+int main() {
     int n;
-    printf("Enter a number: ");
-    if (scanf("%d", &n) != 1) return 1;
-    if (n % 2 == 0) printf("Even\\n");
-    else printf("Odd\\n");
+    cout &lt;&lt; &quot;Enter a number: &quot;;
+    if (!(cin &gt;&gt; n)) return 1;
+    if (n % 2 == 0) cout &lt;&lt; &quot;Even\n&quot;;
+    else cout &lt;&lt; &quot;Odd\n&quot;;
     return 0;
-}''') + '<p><b>Example:</b> input 7 → Odd. <code>%</code> gives the remainder; <code>==</code> compares, while <code>=</code> assigns.</p>') + '''
-''' + box('Linear search · loop flowchart', flow(['Start at index 0','Compare value','Match? → print index','Else advance','End → not found']) + code('''#include <stdio.h>
-int main(void) {
+}</code></pre><p><b>Example:</b> input 7 → Odd. <code>%</code> gives the remainder; <code>==</code> compares, while <code>=</code> assigns.</p></div></details>
+<details class="card"><summary>Linear search · loop flowchart</summary><div class="answer"><div class="flow" role="img" aria-label="Start at index 0 then Compare value then Match? → print index then Else advance then End → not found"><span class="node">Start at index 0</span><span aria-hidden="true" class="arrow">→</span><span class="node">Compare value</span><span aria-hidden="true" class="arrow">→</span><span class="node">Match? → print index</span><span aria-hidden="true" class="arrow">→</span><span class="node">Else advance</span><span aria-hidden="true" class="arrow">→</span><span class="node">End → not found</span></div><pre><code>#include &lt;iostream.h&gt;
+int main() {
     int a[5] = {4, 9, 2, 7, 1};
     int key = 7, i, found = -1;
-    for (i = 0; i < 5; ++i) {
+    for (i = 0; i &lt; 5; ++i) {
         if (a[i] == key) { found = i; break; }
     }
-    if (found >= 0) printf("Found at index %d\\n", found);
-    else printf("Not found\\n");
+    if (found &gt;= 0) cout &lt;&lt; &quot;Found at index &quot; &lt;&lt; found &lt;&lt; &quot;\n&quot;;
+    else cout &lt;&lt; &quot;Not found\n&quot;;
     return 0;
-}''') + '<p><b>Output:</b> Found at index 3. Linear search does not require sorted input; binary search does.</p>') + '''
-''' + box('Stack using an array · PUSH and POP', flow(['PUSH request','Is top at MAX−1?','Yes → overflow','No → increment top; store']) + code('''#include <stdio.h>
+}</code></pre><p><b>Output:</b> Found at index 3. Linear search does not require sorted input; binary search does.</p></div></details>
+<details class="card"><summary>Stack using an array · PUSH and POP</summary><div class="answer"><div class="flow" role="img" aria-label="PUSH request then Is top at MAX−1? then Yes → overflow then No → increment top; store"><span class="node">PUSH request</span><span aria-hidden="true" class="arrow">→</span><span class="node">Is top at MAX−1?</span><span aria-hidden="true" class="arrow">→</span><span class="node">Yes → overflow</span><span aria-hidden="true" class="arrow">→</span><span class="node">No → increment top; store</span></div><pre><code>#include &lt;iostream.h&gt;
 #define MAX 5
 int stack[MAX], top = -1;
 void push(int x) {
-    if (top == MAX - 1) printf("Overflow\\n");
+    if (top == MAX - 1) cout &lt;&lt; &quot;Overflow\n&quot;;
     else stack[++top] = x;
 }
-void pop(void) {
-    if (top == -1) printf("Underflow\\n");
-    else printf("Popped %d\\n", stack[top--]);
+void pop() {
+    if (top == -1) cout &lt;&lt; &quot;Underflow\n&quot;;
+    else cout &lt;&lt; &quot;Popped &quot; &lt;&lt; stack[top--] &lt;&lt; &quot;\n&quot;;
 }
-int main(void) {
+int main() {
     push(10); push(20); pop(); pop();
     return 0;
-}''') + '<p><b>Output:</b> Popped 20; then Popped 10. This is an illustrative <code>.C</code> exercise; the official Class XII practical specifies C++ for its programming problem.</p>') + '''
-''' + box('Three types of programming errors', '<ul><li><b>Syntax/compiler error:</b> missing semicolon or misspelled identifier; compilation fails.</li><li><b>Runtime error:</b> occurs while executing, e.g. invalid input or out-of-range access may fail or behave unpredictably.</li><li><b>Logical error:</b> runs but gives the wrong answer, e.g. using <code>+</code> where <code>*</code> was intended.</li></ul>') + '''</section>
+}</code></pre><p><b>Output:</b> Popped 20; then Popped 10. This is an illustrative C++ exercise; ask your teacher whether data structures are in the half-yearly scope.</p></div></details>
+<details class="card"><summary>Three types of programming errors</summary><div class="answer"><ul><li><b>Syntax/compiler error:</b> missing semicolon or misspelled identifier; compilation fails.</li><li><b>Runtime error:</b> occurs while executing, e.g. invalid input or out-of-range access may fail or behave unpredictably.</li><li><b>Logical error:</b> runs but gives the wrong answer, e.g. using <code>+</code> where <code>*</code> was intended.</li></ul></div></details></section>
 <section id="dbms"><h2>05 / DBMS · detailed concepts</h2><p class="sub">Official course unit III; overlaps strongly with the supplied PDF. [1]</p>
 ''' + box('Database, DBMS, relation, attribute, tuple and domain', '<p>A <b>database</b> is organized related data; a <b>DBMS</b> creates, stores, retrieves and manages it. A relational <b>relation</b> is represented as a table; <b>attributes</b> are columns, <b>tuples</b> are rows, and a <b>domain</b> is a column’s allowed type/set of values. In ITEM, <code>Price</code> is an attribute and <code>(1, Pen, 20, 50)</code> is a tuple.</p>') + '''
 ''' + box('Candidate, primary, alternate and foreign keys', '<p>A <b>candidate key</b> can uniquely identify a row and has no unnecessary column; choose one as the <b>primary key</b>. Other candidate keys are <b>alternate keys</b>. A <b>foreign key</b> in BOOK points to a key in PUBLISHER. Primary keys are unique and not NULL. Foreign keys may repeat across rows and may be NULL unless explicitly constrained.</p>' + flow(['PUBLISHER.P_ID (primary)','BOOK.P_ID (foreign)','Valid P_ID or allowed NULL']) ) + '''
@@ -187,7 +187,7 @@ HAVING COUNT(*) > 1;''')+'<p>Output: stock <b>50</b>, total <b>2</b>. WHERE filt
 ('4m · Explain single and multilevel inheritance with an example.','<p><b>Single:</b> <code>class B : public A</code> (B derives from A). <b>Multilevel:</b> <code>class C : public B</code> where B already derives from A. C inherits accessible members along A → B → C. Private base members are not directly accessible.</p>'),
 ('4m · Why does a binary search need a sorted array?','<p>At each step binary search compares the middle element and discards half of the range based on order. Without sorted order, it cannot know which half to discard; use linear search instead.</p>'),
 ('4m · Trace stack PUSH(10), PUSH(20), POP(), PUSH(30).','<p>After first two pushes, stack is [10, 20] (20 at top). POP removes 20. PUSH(30) gives [10, 30]; top is 30.</p>'),
-('5m · Write a Turbo C program to find a value in an array.','<p>Use the complete <a href="#cprograms">linear-search .C program</a>. For array {4,9,2,7,1} and key 7, it prints <code>Found at index 3</code>. Include the comparison loop and not-found branch in an exam answer.</p>'),
+('5m · Write a Turbo C++ program to find a value in an array.','<p>Use the complete <a href="#cppprograms">linear-search .CPP program</a>. For array {4,9,2,7,1} and key 7, it prints <code>Found at index 3</code>. Include the comparison loop and not-found branch in an exam answer.</p>'),
 ('5m · Build two tables with a primary/foreign key.','<p>See the complete <a href="#commands">PUBLISHER and BOOK DDL</a>. Create PUBLISHER first because BOOK references it. In BOOK, ISBN is the primary key and P_ID is the foreign key.</p>'),
 ]
 extra += ''.join(box(q,a) for q,a in qa) + '</section>'
@@ -200,9 +200,9 @@ extra += '''<section id="sources"><h2>Sources &amp; coverage</h2><ul>
 
 # Keep the original PDF-based notes, but put new high-priority concept lessons first.
 base = base.replace('<title>Computer Science · Half-yearly main notes</title>', '<title>Computer Science · Complete half-yearly revision</title>')
-base = base.replace('<header><h1>Computer Science<br>half-yearly main notes</h1><p>Clear, short answers from the supplied <em>Half Yearly Main Notes</em> PDF. Open any question to revise its answer. Page references point to that PDF; blue notes and corrections are editorial additions.</p></header>', '<header><h1>Computer Science<br>revision guide</h1><p>Important concepts first, then flowcharts, Turbo-compatible C and C++ programs, detailed notes and answered ASSEB-style practice. Your common-question PDF remains in the guide below.</p></header>')
+base = base.replace('<header><h1>Computer Science<br>half-yearly main notes</h1><p>Clear, short answers from the supplied <em>Half Yearly Main Notes</em> PDF. Open any question to revise its answer. Page references point to that PDF; blue notes and corrections are editorial additions.</p></header>', '<header><h1>Computer Science<br>revision guide</h1><p>Important concepts first, then flowcharts, Turbo C++-style programs, detailed notes and answered ASSEB-style practice. Your common-question PDF remains in the guide below.</p></header>')
 oldnav = '<nav class="nav" aria-label="Jump to topic"><a href="#networks">Networks</a><a href="#sql">SQL basics</a><a href="#commands">SQL commands</a><a href="#practice">Query practice</a><a href="#topics">More topics</a><a href="#corrections">Source corrections</a></nav>'
-newnav = '<nav class="nav" aria-label="Jump to topic"><a href="#map">Study map</a><a href="#concepts">Key points</a><a href="#turbo">Turbo setup</a><a href="#oop">C++ OOP</a><a href="#cprograms">C programs</a><a href="#dbms">DBMS</a><a href="#networks">Networks</a><a href="#sql">SQL notes</a><a href="#commands">SQL commands</a><a href="#practice">SQL practice</a><a href="#wider">Other units</a><a href="#questions">Questions</a><a href="#sources">Sources</a></nav>'
+newnav = '<nav class="nav" aria-label="Jump to topic"><a href="#map">Study map</a><a href="#concepts">Key points</a><a href="#turbo">Turbo C++ setup</a><a href="#oop">C++ OOP</a><a href="#cppprograms">C++ programs</a><a href="#dbms">DBMS</a><a href="#networks">Networks</a><a href="#sql">SQL notes</a><a href="#commands">SQL commands</a><a href="#practice">SQL practice</a><a href="#wider">Other units</a><a href="#questions">Questions</a><a href="#sources">Sources</a></nav>'
 assert oldnav in base
 base = base.replace(oldnav, newnav)
 base = base.replace('<section id="networks">', intro + '<section id="networks">', 1)
@@ -214,26 +214,29 @@ base = base.replace('</style>', '''.flow{display:flex;align-items:center;gap:7px
 base = base.replace('<section id="networks">', '<h2 class="part-head">Theory study · networks and SQL from your notes</h2><section id="networks">', 1)
 base = base.replace('<section id="wider">', '<h2 class="part-head">Beyond the confirmed focus</h2><section id="wider">', 1)
 base = base.replace('<section id="questions">', '<h2 class="part-head">Exam practice · reveal, edit and run</h2><section id="questions">', 1)
-base = base.replace('<section id="corrections">', '''<section id="recap"><h2>Quick revision / last 15 minutes</h2><div class="grid"><div class="tile"><b>OOP in one glance</b><p>class blueprint → object instance → constructor initializes → public functions access private data → destructor cleans up. :: defines functions outside class. Inheritance reuses a base class.</p></div><div class="tile"><b>SQL in one glance</b><p>CREATE / ALTER / DROP = structure. INSERT / UPDATE / DELETE = data. SELECT columns FROM table WHERE row condition GROUP BY group HAVING group condition ORDER BY sorting.</p></div><div class="tile"><b>Network in one glance</b><p>LAN: building. MAN: city. WAN: wide area. Star: central switch; bus: shared backbone. Repeater regenerates; router connects networks.</p></div><div class="tile"><b>Check before submitting</b><p>Turbo C (.C) for procedural code; Turbo C++ (.CPP) for classes. Semicolons, braces, correct header, valid return type, input, and sample output. Never claim these questions are guaranteed.</p></div></div><p><button id="resetProgress" type="button">Reset study progress</button> <span id="studyProgress" class="small" aria-live="polite"></span></p></section><section id="corrections">''', 1)
+base = base.replace('<section id="corrections">', '''<section id="recap"><h2>Quick revision / last 15 minutes</h2><div class="grid"><div class="tile"><b>OOP in one glance</b><p>class blueprint → object instance → constructor initializes → public functions access private data → destructor cleans up. :: defines functions outside class. Inheritance reuses a base class.</p></div><div class="tile"><b>SQL in one glance</b><p>CREATE / ALTER / DROP = structure. INSERT / UPDATE / DELETE = data. SELECT columns FROM table WHERE row condition GROUP BY group HAVING group condition ORDER BY sorting.</p></div><div class="tile"><b>Network in one glance</b><p>LAN: building. MAN: city. WAN: wide area. Star: central switch; bus: shared backbone. Repeater regenerates; router connects networks.</p></div><div class="tile"><b>Check before submitting</b><p>Turbo C++ (.CPP) for every program, including loops and data structures. Semicolons, braces, correct header, valid return type, input, and sample output. Never claim these questions are guaranteed.</p></div></div><p><button id="resetProgress" type="button">Reset study progress</button> <span id="studyProgress" class="small" aria-live="polite"></span></p></section><section id="corrections">''', 1)
 base = base.replace('<a href="#sources">Sources</a></nav>', '<a href="#recap">Quick revision</a><a href="#sources">Sources</a></nav>', 1)
-# Add clickable practice panes to every C / C++ code answer, including linked code questions.
+# The migrated pre-escaped examples need their quoted newline restored after interpolation.
+base = re.sub(r'(<section id="cppprograms">.*?</section>)', lambda m: m.group(1).replace('\n&quot;', '\\n&quot;'), base, count=1, flags=re.S)
+# Add clickable practice panes to every C++ code answer, including linked code questions.
 count = [0]
 def add_lab(m):
     raw = m.group(1)
     if not raw.startswith('#include'):
         return m.group(0)
     count[0] += 1
-    lang = 'cpp' if 'iostream.h' in raw or 'fstream.h' in raw else 'c'
-    return m.group(0) + '<div class="lab-link"><button type="button" class="open-lab" data-code="' + str(count[0]) + '" data-lang="' + lang + '">✎ Open practice window · ' + ('.CPP' if lang == 'cpp' else '.C') + '</button><span class="small">Edit the answer and try an input</span></div>'
+    assert 'iostream.h' in raw or 'fstream.h' in raw, 'Only C++ examples may open the lab'
+    lang = 'cpp'
+    return m.group(0) + '<div class="lab-link"><button type="button" class="open-lab" data-code="' + str(count[0]) + '" data-lang="' + lang + '">✎ Open practice window · ' + '.CPP' + '</button><span class="small">Edit the answer and try an input</span></div>'
 base = re.sub(r'<pre><code>(.*?)</code></pre>', add_lab, base, flags=re.S)
 base = base.replace('<a href="#oop">Item class program</a>', '<a href="#oop" class="practice-jump" data-match="class Item">Item class program</a>')
-base = base.replace('<a href="#cprograms">linear-search .C program</a>', '<a href="#cprograms" class="practice-jump" data-match="int a[5]">linear-search .C program</a>')
+base = base.replace('<a href="#cppprograms">linear-search .CPP program</a>', '<a href="#cppprograms" class="practice-jump" data-match="int a[5]">linear-search .CPP program</a>')
 base = base.replace('<a href="#oop" class="practice-jump" data-match="class Item">Item class program</a>', '<a href="#oop" class="practice-jump" data-match="class Item">Open the Item answer in the practice window</a>')
-base = base.replace('<a href="#cprograms" class="practice-jump" data-match="int a[5]">linear-search .C program</a>', '<a href="#cprograms" class="practice-jump" data-match="int a[5]">Open the linear-search answer in the practice window</a>')
+base = base.replace('<a href="#cppprograms" class="practice-jump" data-match="int a[5]">linear-search .CPP program</a>', '<a href="#cppprograms" class="practice-jump" data-match="int a[5]">Open the linear-search answer in the practice window</a>')
 base = base.replace('<li><strong>Bandwidth:</strong> a communication channel’s capacity to carry data, commonly expressed in bits per second.</li>', '<li><strong>Bandwidth:</strong> the range of frequencies a channel can carry, measured in Hz; in casual networking usage, the term also describes data capacity, measured in bps. The two measurements are not identical.</li>')
 base = base.replace('FOREIGN KEY</strong> links to a candidate/primary key in another table;', 'FOREIGN KEY</strong> references a primary or unique key in another table;')
 base = base.replace('foreign key</b> in BOOK points to a key in PUBLISHER.', 'foreign key</b> in BOOK points to a primary or unique key in PUBLISHER.')
-base = base.replace('</body>', '''<div class="modal" id="lab" hidden role="dialog" aria-modal="true" aria-labelledby="labTitle"><div class="modal-panel"><div class="modal-top"><div><strong id="labTitle">Practice lab</strong><p id="labType" class="small"></p></div><button type="button" id="closeLab" aria-label="Close practice window">✕ Close</button></div><p class="small" id="labNotice">Run submits the code and input to a public Judge0 sandbox. It runs GCC C / C++, <strong>not the actual Turbo compiler</strong>; old Turbo C++ headers are adapted for execution. File programs use a temporary sandbox and may not work here. Don’t enter private data.</p><div class="editor-grid"><div><label for="editor"><strong>Editable answer</strong></label><textarea id="editor" spellcheck="false" aria-label="Edit program code"></textarea></div><div><label for="stdin"><strong>Input (stdin)</strong></label><textarea id="stdin" placeholder="e.g. 7" aria-label="Program input"></textarea><button type="button" id="runCode" class="run">▶ Compile &amp; run</button><button type="button" id="resetCode">Restore answer</button><h3>Output / errors</h3><pre id="runOutput" role="status" aria-live="polite">Ready to run.</pre></div></div></div></div><script src="app.js" defer></script></body>''')
+base = base.replace('</body>', '''<div class="modal" id="lab" hidden role="dialog" aria-modal="true" aria-labelledby="labTitle"><div class="modal-panel"><div class="modal-top"><div><strong id="labTitle">Practice lab</strong><p id="labType" class="small"></p></div><button type="button" id="closeLab" aria-label="Close practice window">✕ Close</button></div><p class="small" id="labNotice">Run submits the code and input to a public Judge0 sandbox. It runs GCC C++, <strong>not the actual Turbo C++ compiler</strong>; old Turbo C++ headers are adapted for execution. File programs use a temporary sandbox and may not work here. Don’t enter private data.</p><div class="editor-grid"><div><label for="editor"><strong>Editable answer</strong></label><textarea id="editor" spellcheck="false" aria-label="Edit program code"></textarea></div><div><label for="stdin"><strong>Input (stdin)</strong></label><textarea id="stdin" placeholder="e.g. 7" aria-label="Program input"></textarea><button type="button" id="runCode" class="run">▶ Compile &amp; run</button><button type="button" id="resetCode">Restore answer</button><h3>Output / errors</h3><pre id="runOutput" role="status" aria-live="polite">Ready to run.</pre></div></div></div></div><script src="app.js" defer></script></body>''')
 base = base.replace('</style>', '''.part-head{margin:42px 0 14px;font-size:18px;letter-spacing:-.02em;color:#7e5d2f;text-transform:uppercase}.lab-link{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}.open-lab,.run{background:#075db0;color:white;border:1px solid #075db0;padding:9px 13px}.open-lab:hover,.run:hover{background:#074c8e}.modal[hidden]{display:none}.modal{position:fixed;inset:0;background:rgba(13,18,25,.66);display:flex;align-items:center;justify-content:center;z-index:20;padding:12px}.modal-panel{background:#fff;border-radius:12px;width:min(1080px,100%);max-height:95vh;overflow:auto;padding:18px;box-shadow:0 24px 70px #0005}.modal-top{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px}.modal-top p{margin:2px 0}.editor-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}.editor-grid textarea{width:100%;border:1px solid #ccc;border-radius:6px;font:13px/1.5 ui-monospace,Consolas,monospace;padding:10px;background:#fafafa;color:#181818;resize:vertical}#editor{height: min(59vh,590px);min-height:260px;tab-size:4}#stdin{height:90px}#runOutput{min-height:140px;max-height:230px;white-space:pre-wrap;overflow:auto;word-break:break-word}.editor-grid button{margin:8px 7px 0 0}.editor-grid h3{margin:17px 0 4px}@media(max-width:700px){.editor-grid{grid-template-columns:1fr}.modal-panel{padding:12px}#editor{height:38vh;min-height:190px}.modal{align-items:stretch}.modal-panel{max-height:100%}}@media print{.modal,.lab-link,.nav,#resetProgress{display:none!important}details .answer{display:block!important}} </style>''')
 (ROOT / 'index.html').write_text(base, encoding='utf-8')
-print('built', len(base), 'characters;', base.count('<section '), 'sections;', base.count('class="open-lab"'), 'C/C++ practice panes')
+print('built', len(base), 'characters;', base.count('<section '), 'sections;', base.count('class="open-lab"'), 'C++ practice panes')

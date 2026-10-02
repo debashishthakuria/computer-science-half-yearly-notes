@@ -1,15 +1,14 @@
-/* Practical lab: Judge0 GCC 7 sandbox, not a Turbo C/C++ emulator. */
+/* Practical lab: Judge0 GCC C++ sandbox, not a Turbo C++ emulator. */
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);
   const lab = $('lab'), editor = $('editor'), input = $('stdin'), output = $('runOutput');
-  let original = '', lang = 'c', busy = false, previousFocus = null;
+  let original = '', busy = false, previousFocus = null;
   const buttons = [...document.querySelectorAll('.open-lab')];
   const cards = [...document.querySelectorAll('details.card')];
   const base64 = (text) => btoa([...new TextEncoder().encode(text)].map(b => String.fromCharCode(b)).join(''));
   const unbase64 = (text) => new TextDecoder().decode(Uint8Array.from(atob(text), c => c.charCodeAt(0)));
   function adapt(code) {
-    if (lang !== 'cpp') return code;
     // Legacy Turbo C++ headers/streams are unavailable on GCC. This transforms only
     // the tutorial's header conventions; the editor still displays the original answer.
     return code.replace(/^\s*#include\s*<iostream\.h>/gm, '#include <iostream>\nusing namespace std;')
@@ -19,15 +18,13 @@
       .replace(/\bgetch\s*\(\s*\)\s*;/g, '');
   }
   function open(button) {
-    const pre = button.closest('.answer').querySelector('pre code');
-    if (!pre) return;
+    const pre = button?.closest('.answer')?.querySelector('pre code');
     previousFocus = button;
-    lang = button.dataset.lang;
-    original = pre.textContent;
+    original = pre?.textContent || '#include <iostream.h>\nint main() {\n    cout << "Hello, world!\\n";\n    return 0;\n}';
     editor.value = original;
     input.value = '';
     output.textContent = 'Ready to compile. Edit the answer or run it as shown.';
-    $('labType').textContent = lang === 'cpp' ? 'Turbo C++-style .CPP answer · GCC simulation' : 'Turbo C-style .C answer · GCC simulation';
+    $('labType').textContent = 'Turbo C++-style .CPP · online GCC C++ simulation';
     lab.hidden = false;
     document.body.style.overflow = 'hidden';
     editor.focus();
@@ -39,6 +36,7 @@
     previousFocus?.focus();
   }
   buttons.forEach(button => button.addEventListener('click', () => open(button)));
+  document.querySelectorAll('.open-blank-lab').forEach(button => button.addEventListener('click', () => open(button)));
   $('closeLab').addEventListener('click', close);
   lab.addEventListener('click', e => { if (e.target === lab) close(); });
   document.addEventListener('keydown', e => {
@@ -68,9 +66,9 @@
     try {
       const response = await fetch('https://ce.judge0.com/submissions?base64_encoded=true&wait=true', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({language_id: lang === 'cpp' ? 52 : 48,
+        body: JSON.stringify({language_id: 52,
           source_code: base64(adapt(editor.value)), stdin: base64(input.value),
-          compiler_options: lang === 'cpp' ? '-std=c++98' : '-std=c89',
+          compiler_options: '-std=c++98',
           cpu_time_limit: 2, wall_time_limit: 5, memory_limit: 128000})
       });
       if (!response.ok) throw Error('Runner returned HTTP ' + response.status);
